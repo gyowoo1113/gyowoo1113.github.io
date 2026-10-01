@@ -1,0 +1,1488 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>변승은 — Backend Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   Include this ENTIRE file in every presentation.
+   Slides are authored at 1920×1080 and scaled as a whole.
+   =========================================== */
+
+      /* 1. Lock the browser viewport */
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+      }
+
+      /* 2. Full-window deck viewport */
+      .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+      }
+
+      /* 3. Fixed 16:9 design canvas.
+   JavaScript sets transform: translate(...) scale(...). */
+      .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+      }
+
+      /* 4. Slides stack inside the fixed stage.
+   Content must be laid out at 1920×1080, not reflowed per device. */
+      .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+      }
+
+      .slide.active,
+      .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      /* 5. Keep media inside authored slide bounds */
+      img,
+      video,
+      canvas,
+      svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      /* 6. Presentation chrome stays outside the slide design system */
+      .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+
+      /* 7. Print one fixed-size slide per page */
+      @media print {
+        html,
+        body {
+          width: 1920px;
+          height: auto;
+          overflow: visible;
+          background: #fff;
+        }
+
+        .deck-viewport {
+          position: static;
+          overflow: visible;
+          background: #fff;
+        }
+
+        .deck-stage {
+          position: static;
+          width: auto;
+          height: auto;
+          transform: none !important;
+          background: none;
+        }
+
+        .slide {
+          position: relative;
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+          width: 1920px;
+          height: 1080px;
+          break-after: page;
+          page-break-after: always;
+        }
+
+        .slide:last-child {
+          break-after: auto;
+          page-break-after: auto;
+        }
+
+        .deck-controls {
+          display: none !important;
+        }
+      }
+
+      /* 8. Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.2s !important;
+        }
+      }
+
+      /* === A4 DOCUMENT OVERRIDES ===
+   User-requested portrait document replaces the skill's widescreen stage.
+   Internal measurements stay fixed; only the whole sheet scales on narrow screens. */
+      :root {
+        --ink: #202a33;
+        --muted: #52606a;
+        --accent: #234f6c;
+        --line: #cbd2d6;
+        --tint: #f1f5f6;
+        --paper: #fff;
+        --body: "Noto Sans KR", sans-serif;
+        --heading: "IBM Plex Sans KR", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --space: 16px;
+        --radius: 0px;
+        --stage-bg: #e7eaed;
+        --page-bottom-safe: 28px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+      }
+      body {
+        font-family: var(--body);
+        color: var(--ink);
+        font-size: 12.8px;
+        line-height: 1.65;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        margin: 0;
+        padding: 28px 0 44px;
+      }
+      .sheet-wrap {
+        width: 210mm;
+        margin: 0 auto;
+      }
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        padding: 44px 48px calc(46px + var(--page-bottom-safe));
+        background: var(--paper);
+        box-shadow: 0 2px 16px #18252e16;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 20px;
+        overflow: visible;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--heading);
+      }
+      h1 {
+        font-size: 29px;
+        line-height: 1.2;
+        letter-spacing: -1px;
+      }
+      h2 {
+        font-size: 10px;
+        letter-spacing: 1.4px;
+        color: var(--accent);
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 15px;
+        line-height: 1.4;
+        margin-top: 12px;
+        font-weight: 700;
+      }
+      h2 + h3 {
+        margin-top: 0;
+      }
+      p {
+        margin-top: 7px;
+      }
+      strong {
+        font-weight: 650;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.9em;
+      }
+      .role {
+        font-size: 13px;
+        color: var(--accent);
+        margin-top: 5px;
+        font-weight: 600;
+      }
+      .intro {
+        font-size: 13.7px;
+        line-height: 1.7;
+        margin: 14px 0 11px;
+        max-width: 660px;
+      }
+      .intro strong {
+        font-weight: 500;
+      }
+      .contacts {
+        font-size: 10px;
+        white-space: nowrap;
+        color: var(--muted);
+      }
+      .contacts code {
+        font-size: 9px;
+        color: var(--accent);
+        margin-right: 3px;
+      }
+      .body-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 17px;
+      }
+      .section {
+        break-inside: avoid;
+        min-width: 0;
+      }
+      .section h2 {
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+      .date {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .date strong {
+        font-weight: 400;
+      }
+      .achievement {
+        margin-top: 9px;
+      }
+      .achievement strong {
+        font-size: 12.8px;
+      }
+      ul {
+        padding-left: 17px;
+        margin-top: 8px;
+      }
+      li + li {
+        margin-top: 3px;
+      }
+      .case-ref {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--accent);
+        margin-top: 8px;
+      }
+      .education p {
+        font-size: 11.4px;
+        line-height: 1.9;
+      }
+      .folio {
+        position: absolute;
+        bottom: var(--page-bottom-safe);
+        left: 48px;
+        right: 48px;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 8px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        padding-top: 7px;
+      }
+      /* === REUSABLE TECHNICAL COMPONENTS FOR LATER PAGES ===
+   No later-page content is rendered. Use section/h2/h3 for hierarchy;
+   callout for decisions/trade-offs; diagram with node/edge for real flows;
+   comparison for verification matrices; code-block for short excerpts. */
+      .callout {
+        background: var(--tint);
+        border-left: 3px solid var(--accent);
+        padding: 12px 14px;
+        border-radius: var(--radius);
+        margin-block: var(--space);
+      }
+      .callout-title {
+        font: 700 11px var(--heading);
+        color: var(--accent);
+      }
+      .diagram {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+      .diagram .node {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        text-align: center;
+        font-size: 11px;
+      }
+      .diagram .edge {
+        color: var(--accent);
+        font-family: var(--mono);
+      }
+      .comparison {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      .comparison th,
+      .comparison td {
+        padding: 8px 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .comparison th {
+        background: var(--tint);
+        font-weight: 600;
+      }
+      .code-block {
+        font: 10.5px/1.65 var(--mono);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        padding: 14px;
+        background: var(--tint);
+        border: 1px solid var(--line);
+        tab-size: 2;
+      }
+      .code-block .comment {
+        color: var(--muted);
+      }
+      /* === OPTIONAL INLINE TEXT EDITING === */
+      .edit-tools {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .edit-tools:hover,
+      .edit-tools:focus-within,
+      .editing .edit-tools {
+        opacity: 1;
+      }
+      .edit-tools button {
+        border: 1px solid #9eaab2;
+        background: #fff;
+        padding: 7px 10px;
+        color: #253744;
+        cursor: pointer;
+        font: 12px var(--body);
+      }
+      [contenteditable="true"] {
+        outline: 1px dashed #91a9b9;
+        outline-offset: 4px;
+      }
+      /* === PRINT FOUNDATION: PREVIEW ONLY, NO PDF GENERATED === */
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          height: auto;
+          padding: 0;
+          background: white;
+          overflow: visible;
+        }
+        .sheet-wrap {
+          width: 210mm !important;
+          height: auto !important;
+          margin: 0;
+        }
+        .page {
+          transform: none !important;
+          box-shadow: none;
+          width: 210mm;
+          height: 297mm;
+          break-after: page;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+        .edit-tools {
+          display: none;
+        }
+      }
+      /* === A: LINEAR EDITORIAL SYSTEM === */
+      .page {
+        border-top: 5px solid var(--accent);
+        padding-top: 36px;
+      }
+      .header {
+        position: relative;
+      }
+      .role {
+        position: absolute;
+        right: 0;
+        top: 6px;
+      }
+      .section h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 0;
+        padding: 0;
+      }
+      .section h2:after {
+        content: "";
+        flex: 1;
+        border-top: 1px solid var(--line);
+      }
+      .work h3,
+      .opensource h3 {
+        display: inline-block;
+      }
+      .date {
+        float: right;
+        margin-top: 3px;
+      }
+      .opensource h3:nth-of-type(2) {
+        margin-top: 13px;
+      }
+      .education h2 {
+        margin-bottom: 5px;
+      }
+      /* === SHARED MULTI-PAGE DOCUMENT SYSTEM ===
+   Page 1 retains its original markup and rules. Technical pages reuse its
+   tokens, content width, section rules, typography and footer placement. */
+      .sheet-wrap + .sheet-wrap {
+        margin-top: 28px;
+      }
+      .technical {
+        gap: 18px;
+      }
+      .technical .case-header h1 {
+        font-size: 24px;
+        line-height: 1.3;
+        letter-spacing: -0.6px;
+      }
+      .technical .eyebrow {
+        font: 500 10px var(--mono);
+        letter-spacing: 0.6px;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .technical .subtitle {
+        font: 600 15px/1.5 var(--heading);
+        color: var(--accent);
+        margin-top: 6px;
+      }
+      .technical .lede {
+        margin-top: 10px;
+      }
+      .technical .content-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 0;
+      }
+      .technical .section h2 {
+        margin-bottom: 8px;
+      }
+      .technical .callout {
+        margin: 0;
+        padding: 10px 13px;
+      }
+      .technical .callout p {
+        margin-top: 4px;
+      }
+      .technical .small {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .technical .muted {
+        color: var(--muted);
+      }
+      .technical .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .technical .three-col {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .technical .label {
+        font: 600 10px/1.5 var(--heading);
+        letter-spacing: 0.6px;
+        color: var(--accent);
+      }
+      .technical .box {
+        border: 1px solid var(--line);
+        padding: 6px 8px;
+        background: var(--paper);
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.5;
+        min-width: 0;
+      }
+      .technical .box code {
+        font-size: 11px;
+      }
+      .technical .box.emphasis {
+        border-color: var(--accent);
+        background: var(--tint);
+        font-weight: 600;
+      }
+      .technical .arrow {
+        color: var(--accent);
+        text-align: center;
+        font: 16px/1.2 var(--body);
+        align-self: center;
+      }
+      .technical .arrow.down {
+        line-height: 16px;
+        height: 16px;
+      }
+      .technical .flow-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .technical .flow-row > .box {
+        flex: 1;
+      }
+      .technical .flow-row > .arrow {
+        flex: 0 0 16px;
+      }
+      .technical .panel {
+        border: 1px solid var(--line);
+        padding: 13px;
+      }
+      .technical .caption {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .technical .comparison {
+        font-size: 11.5px;
+      }
+      .technical .comparison th,
+      .technical .comparison td {
+        padding: 6px 9px;
+      }
+      .technical .comparison td:first-child {
+        width: 35%;
+      }
+      .technical .source-line {
+        font: 10px/1.6 var(--mono);
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      /* === EXECUTION BOUNDARIES AND BRANCHES === */
+      .boundary {
+        border: 2px solid var(--accent);
+        padding: 12px;
+        background: var(--tint);
+      }
+      .boundary-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--accent);
+        margin-bottom: 9px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .boundary-title span {
+        font: 500 10px var(--mono);
+      }
+      .guard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 16px;
+      }
+      .guard-grid .guard-source {
+        grid-column: 1 / -1;
+      }
+      .branch {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .branch-label {
+        font: 500 11px var(--mono);
+        color: var(--accent);
+        text-align: center;
+      }
+      .drop {
+        border-style: dashed !important;
+      }
+      .validation-tail {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 0 14px;
+      }
+      .validation-tail .pass-note {
+        align-self: center;
+        font-size: 11.5px;
+        color: var(--muted);
+        padding-left: 8px;
+      }
+      /* === CONNECTED INVESTIGATION === */
+      .evolution {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .evolution .phase {
+        padding: 12px;
+        border: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+      }
+      .evolution .phase.final {
+        border: 2px solid var(--accent);
+        padding: 11px;
+        background: var(--tint);
+      }
+      .phase-title {
+        font: 600 12px/1.4 var(--heading);
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .technical .phase .box {
+        padding: 6px 5px;
+      }
+      .phase .result {
+        margin-top: auto;
+        padding-top: 12px;
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .phase .box code {
+        font-size: 10.5px;
+      }
+      .investigation-link {
+        display: grid;
+        grid-template-columns: 1fr 20px 1fr;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .investigation-link > div:not(.arrow) {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 8px;
+        font-size: 12px;
+      }
+      /* === MODULE ARCHITECTURE AND OUTBOX LIFECYCLE === */
+      .core-panel {
+        border: 2px solid var(--accent);
+        padding: 8px 12px;
+        background: var(--tint);
+      }
+      .core-services {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 12px;
+        margin-top: 7px;
+      }
+      .core-services .box {
+        padding: 7px;
+      }
+      .port-list {
+        font: 11px/1.65 var(--mono);
+        margin-top: 3px;
+        color: var(--accent);
+      }
+      .adapter-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 12px;
+        margin-top: 9px;
+      }
+      .adapter-grid .panel {
+        padding: 9px 10px;
+      }
+      .adapter-grid p {
+        font-size: 11.5px;
+        margin-top: 4px;
+      }
+      .dependency-note {
+        text-align: center;
+        font-size: 10.5px;
+        color: var(--accent);
+        padding-top: 5px;
+      }
+      .transaction {
+        border: 1px solid var(--accent);
+        padding: 9px 12px;
+        background: var(--tint);
+      }
+      .transaction .flow-row {
+        margin-top: 7px;
+      }
+      .runtime-route {
+        margin-top: 8px;
+      }
+      .dispatch-route {
+        flex-direction: row-reverse;
+      }
+      .dispatch-route > .arrow {
+        transform: rotate(180deg);
+      }
+      .technical .commit-drop {
+        width: 30.5%;
+        margin-left: auto;
+      }
+      .runtime-route .box {
+        font-size: 11.5px;
+        padding: 7px 5px;
+      }
+      .state-grid {
+        display: grid;
+        grid-template-columns: 1fr 20px 1.1fr 20px 2fr;
+        gap: 6px;
+        align-items: center;
+      }
+      .state-outcomes {
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 5px 7px;
+        align-items: center;
+        font-size: 11px;
+      }
+      .technical .state-outcomes .box {
+        padding: 2px 6px;
+        font-size: 11px;
+      }
+      .state-outcomes > span {
+        white-space: nowrap;
+      }
+      .decision-grid .callout {
+        padding: 9px 10px;
+      }
+      .decision-grid .callout-title {
+        font-size: 11px;
+      }
+      .decision-grid p {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      @media print {
+        .sheet-wrap + .sheet-wrap {
+          margin-top: 0;
+        }
+        .sheet-wrap {
+          break-after: page;
+          page-break-after: always;
+          break-inside: avoid;
+        }
+        .sheet-wrap:last-of-type {
+          break-after: auto;
+          page-break-after: auto;
+        }
+        .page {
+          break-after: auto;
+          page-break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="edit-tools">
+      <button id="edit">Edit text (E)</button
+      ><button id="save">Save HTML</button>
+    </div>
+    <div class="sheet-wrap">
+      <main class="page" aria-label="포트폴리오 1페이지">
+        <header class="header">
+          <h1>변승은</h1>
+          <div class="role">Backend Developer</div>
+          <p class="intro">
+            <strong
+              >실행 흐름과 책임의 경계를 명확히 파악하고, 다른 개발자가
+              이어받아도 이해하고 확장하기 쉬운 구조를 만드는 것을
+              지향합니다.</strong
+            >
+          </p>
+          <p class="contacts">
+            <code>Email</code>
+            <a href="mailto:yereube@naver.com">yereube@naver.com</a>　
+            <code>GitHub</code>
+            <a href="https://github.com/gyowoo1113">github.com/gyowoo1113</a>　
+            <code>Blog</code>
+            <a href="https://gyowoo1113.github.io">gyowoo1113.github.io</a>
+          </p>
+        </header>
+        <div class="body-grid">
+          <section class="section work">
+            <h2>WORK EXPERIENCE</h2>
+            <h3>소프트아이텍 · Backend Developer</h3>
+            <p class="date"><strong>2024.06 — Present</strong></p>
+            <p class="">
+              교육 정보시스템의 백엔드 개발 및 운영을 담당하고 있습니다.
+            </p>
+            <p class="achievement">
+              <strong>통계 데이터 연계·집계 자동화</strong><br />분산된 통계
+              데이터를 중앙 시스템과 연계하고, 주·월 단위로 수행하던 수작업
+              집계를 정기 배치로 전환했습니다.
+            </p>
+            <p class="achievement">
+              <strong>회원가입 흐름 및 데이터 정합성 개선</strong><br />가입
+              경로별로 달랐던 검증 기준을 추적·통합하고 가입 전 기존 사용자·계정
+              상태 검증을 추가해, 기존 중복 계정 약 300건을 정리하고 동일 원인의
+              재발을 방지했습니다.
+            </p>
+            <p class="achievement">
+              <strong>배포 사전 검증 자동화</strong><br />수작업으로 작성하던
+              배포 정보의 유효성 검증을 자동화해 월평균 3~4건 발생하던 소스 반영
+              오류를 1건 미만으로 줄였습니다.
+            </p>
+          </section>
+          <section class="section opensource">
+            <h2>OPEN SOURCE</h2>
+            <h3>Apache Zeppelin · Contributor</h3>
+            <p class="date"><strong>2026.07 — Present</strong></p>
+            <p class="">
+              대규모 기존 코드베이스의 실행 흐름과 계층 간 책임을 추적하며 서버
+              및 WebSocket 영역을 개선했습니다.
+            </p>
+            <ul>
+              <li>
+                WebSocket 수신 경계에
+                <strong>OP 기반 Runtime Validation</strong>을 추가하고 Handler
+                오류 흐름 개선
+              </li>
+              <li>
+                Serialization 실패가 RPC 경계를 지나며 원인을 잃는 흐름을 추적해
+                <strong>Exception Propagation</strong> 개선
+              </li>
+              <li>
+                테스트의 Frontend Build 의존성 제거, 실행 실패 시
+                <code>System.out/err</code> 복구 등 안정성 개선
+              </li>
+            </ul>
+            <p class="case-ref"><strong>Case Study → P.2–3</strong></p>
+            <h3>Apache Airflow · Contributor</h3>
+            <p class="date"><strong>2026.04 — 2026.06</strong></p>
+            <p class="">
+              Airflow 개발 환경(Breeze) 내에서 UI 국제화(i18n)에 기여하고, 기존
+              테스트 분석·보완 및 코드 리뷰 과정에 참여했습니다.
+            </p>
+          </section>
+          <section class="section project">
+            <h2>PROJECT</h2>
+            <h3>notify-kit · Spring Boot Notification Library</h3>
+            <p class="">
+              알림 저장과 외부 전송의 실패 경계를 분리하기 위해
+              <strong>Transactional Outbox</strong> 기반의 알림 라이브러리를
+              설계했습니다.
+            </p>
+            <p class="">
+              Core가 저장소와 전송 구현에 직접 의존하지 않도록
+              <strong>Port/Adapter 구조</strong>로 분리하고, 조건부 상태 전이를
+              이용한 Worker claim 및
+              <strong>SSE·Slack Sender / Spring Boot AutoConfiguration</strong
+              >을 구현했습니다.
+            </p>
+            <p class="case-ref"><strong>Case Study → P.4</strong></p>
+          </section>
+          <section class="section education">
+            <h2>EDUCATION &amp; EXPERIENCE</h2>
+            <p class="">
+              <strong>한국공학대학교</strong> · 게임공학과 · 2019.03 —
+              2023.08<br /><strong>Open Source Contribution Academy</strong> ·
+              Apache Airflow / Yocto Project<br /><strong
+                >AWS Java Backend Course</strong
+              >
+              · 2023.06 — 2023.11
+            </p>
+          </section>
+        </div>
+        <footer class="folio">
+          <span>변승은 · Backend Developer</span><span>01 / 04</span>
+        </footer>
+      </main>
+    </div>
+    <!-- === PAGE 2: INPUT VALIDATION BOUNDARY === -->
+    <div class="sheet-wrap">
+      <article class="page technical" aria-label="포트폴리오 2페이지">
+        <header class="case-header">
+          <div class="eyebrow">OPEN SOURCE / APACHE ZEPPELIN</div>
+          <h1>WebSocket Runtime Validation</h1>
+          <p class="subtitle">
+            외부 입력을 신뢰하기 전, 공통 수신 경계에서 검증
+          </p>
+          <p class="lede">
+            TypeScript 타입만으로는 실제 JSON payload를 보장할 수 없습니다. 검증
+            없이 Component Handler에 도달하던 데이터를
+            <code>Message.receive()</code>에서 OP별로 검사하도록 개선했습니다.
+          </p>
+          <p class="source-line">
+            <a href="https://github.com/apache/zeppelin/pull/5453"
+              >PR #5453 · ZEPPELIN-6646</a
+            >
+          </p>
+        </header>
+        <div class="content-stack">
+          <section class="section">
+            <h2>RUNTIME MESSAGE FLOW</h2>
+            <div class="flow-row">
+              <div class="box">WebSocket</div>
+              <div class="arrow">→</div>
+              <div class="box"><code>received$ { op, data }</code></div>
+            </div>
+            <div class="arrow down">↓</div>
+            <div class="boundary">
+              <div class="boundary-title">
+                <code>Message.receive()</code><span>VALIDATION BOUNDARY</span>
+              </div>
+              <div class="flow-row">
+                <div class="box">OP match</div>
+                <div class="arrow">→</div>
+                <div class="box">
+                  OP-specific payload guard<br /><code
+                    >getMessagePayloadGuard(op)</code
+                  >
+                </div>
+              </div>
+              <div class="arrow down">↓</div>
+              <div class="guard-grid">
+                <div class="branch">
+                  <div class="branch-label">valid ↓</div>
+                  <div class="box emphasis">검증 통과 · 다음 단계로 전달</div>
+                </div>
+                <div class="branch">
+                  <div class="branch-label">invalid ↓</div>
+                  <div class="box drop">
+                    <strong>DROP + warn(OP)</strong><br />Handler에 도달하기
+                    전에 차단
+                  </div>
+                </div>
+              </div>
+              <p class="caption">
+                Guard가 없는 OP는 기존 경로를 유지합니다. 필요한 OP부터
+                점진적으로 검증을 적용합니다.
+              </p>
+            </div>
+            <div class="validation-tail">
+              <div>
+                <div class="arrow down">↓</div>
+                <div class="box"><code>map(message.data)</code></div>
+                <div class="arrow down">↓</div>
+                <div class="box"><code>@MessageListener</code></div>
+                <div class="arrow down">↓</div>
+                <div class="box emphasis">Component Handler</div>
+              </div>
+              <div class="pass-note">
+                <strong>Handler 오류는 숨기지 않음</strong>
+                <p>
+                  <code>@MessageListener</code>에서 실패한 OP context를 기록하고
+                  원래 오류를 다시 던져 기존 error propagation을 유지합니다.
+                </p>
+              </div>
+            </div>
+          </section>
+          <div class="two-col">
+            <section class="callout">
+              <div class="callout-title">WHY · 이 경계를 선택한 이유</div>
+              <p class="small">
+                OP와 실제 payload를 동시에 알고, subscriber에 넘기기 직전인 공통
+                지점입니다. Handler마다 검증하면 여러 component에 분산될 책임을
+                수신 경계에 모았습니다.
+              </p>
+            </section>
+            <section class="callout">
+              <div class="callout-title">RULE · 정상 removal stub 보존</div>
+              <p class="small">
+                <code>LIST_UPDATE_NOTE_JOBS</code><br /><code
+                  >noteId:string</code
+                >, <code>isRemoved:boolean</code> 필수.<br /><code>true</code> →
+                <code>noteName</code> 생략 허용<br /><code>false</code> →
+                <code>noteName:string</code> 필수
+              </p>
+            </section>
+          </div>
+          <section class="section">
+            <h2>VERIFICATION / REGRESSION SCENARIOS</h2>
+            <table class="comparison">
+              <thead>
+                <tr>
+                  <th>검증 시나리오</th>
+                  <th>기대 동작</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>정상 update / removal stub</td>
+                  <td>Handler 전달 · stub은 noteName 없이 허용</td>
+                </tr>
+                <tr>
+                  <td>Malformed update</td>
+                  <td>Handler 전달 차단 + OP warning</td>
+                </tr>
+                <tr>
+                  <td>Guard 없는 OP</td>
+                  <td>기존 동작 유지</td>
+                </tr>
+                <tr>
+                  <td>Handler exception</td>
+                  <td>OP context 기록 · 오류 전파 · 이후 메시지 처리 유지</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+        </div>
+        <footer class="folio">
+          <span>변승은 · Backend Developer</span><span>02 / 04</span>
+        </footer>
+      </article>
+    </div>
+    <!-- === PAGE 3: ONE INVESTIGATION ACROSS TWO PRS === -->
+    <div class="sheet-wrap">
+      <article class="page technical" aria-label="포트폴리오 3페이지">
+        <header class="case-header">
+          <div class="eyebrow">OPEN SOURCE / APACHE ZEPPELIN</div>
+          <h1>Serialization &amp; RPC Error Propagation</h1>
+          <p class="subtitle">직렬화에서 드러낸 실패를 RPC 호출자까지 보존</p>
+          <p class="lede">
+            <code>#5312</code>에서 숨겨진 직렬화 예외를 드러내자, 상위 RPC
+            계층이 이를 <code>null</code>로 바꾸는 문제가 나타났습니다.
+            <code>#5349</code>는 그 다음 경계까지 실패의 의미를 이어 전달한 후속
+            수정입니다.
+          </p>
+          <p class="source-line">
+            <a href="https://github.com/apache/zeppelin/pull/5312"
+              >#5312 · ZEPPELIN-6467</a
+            >
+            →
+            <a href="https://github.com/apache/zeppelin/pull/5349"
+              >#5349 · ZEPPELIN-6543</a
+            >
+          </p>
+        </header>
+        <div class="content-stack">
+          <section class="section">
+            <h2>ONE INVESTIGATION / TWO BOUNDARIES</h2>
+            <div class="investigation-link">
+              <div>
+                <strong>#5312 · Exception contract 복원</strong><br /><code
+                  >Resource.serializeObject()</code
+                >
+              </div>
+              <div class="arrow">→</div>
+              <div>
+                <strong>#5349 · RPC boundary 보완</strong><br /><code
+                  >RemoteInterpreterEventServer.invokeMethod()</code
+                >
+              </div>
+            </div>
+            <div class="evolution">
+              <div class="phase">
+                <div class="phase-title">
+                  ORIGINAL<br /><span class="small muted"
+                    >실패가 내부에서 사라짐</span
+                  >
+                </div>
+                <div class="box">Serialization failure</div>
+                <div class="arrow down">↓</div>
+                <div class="box">
+                  <code>catch(Exception)</code><br /><code
+                    >printStackTrace()</code
+                  >
+                </div>
+                <div class="arrow down">↓</div>
+                <div class="box">예외 swallowed</div>
+                <div class="arrow down">↓</div>
+                <div class="box">
+                  Invalid / partial result<br /><code>ByteBuffer</code>
+                </div>
+                <p class="result">
+                  호출자가 실패를 안정적으로 감지할 수 없는 결과를 반환했습니다.
+                </p>
+              </div>
+              <div class="phase">
+                <div class="phase-title">
+                  #5312<br /><span class="small muted"
+                    >실패는 드러났지만 원인 유실</span
+                  >
+                </div>
+                <div class="box">Serialization failure</div>
+                <div class="arrow down">↓</div>
+                <div class="box emphasis"><code>IOException</code></div>
+                <div class="arrow down">↓</div>
+                <div class="box">
+                  Upper RPC layer<br /><code>catch(IOException)</code>
+                </div>
+                <div class="arrow down">↓</div>
+                <div class="box">Log + return <code>null</code></div>
+                <div class="arrow down">↓</div>
+                <div class="box">Thrift<br /><code>MISSING_RESULT</code></div>
+                <p class="result">
+                  RPC 경계에서 원인이 결과 누락 오류로 바뀌었습니다.
+                </p>
+              </div>
+              <div class="phase final">
+                <div class="phase-title">
+                  #5349 FINAL<br /><span class="small muted"
+                    >실패 의미를 RPC 경계 밖으로</span
+                  >
+                </div>
+                <div class="box">Serialization failure</div>
+                <div class="arrow down">↓</div>
+                <div class="box emphasis"><code>IOException</code></div>
+                <div class="arrow down">↓</div>
+                <div class="box">
+                  <code>RemoteInterpreter<br />EventServer</code
+                  ><br />Server-side logging<br /><span class="small"
+                    >원본 stack trace 보존</span
+                  >
+                </div>
+                <div class="arrow down">↓</div>
+                <div class="box emphasis">
+                  <code>InterpreterRPCException</code>
+                </div>
+                <div class="arrow down">↓</div>
+                <div class="box">Thrift RPC → Caller</div>
+                <p class="result">
+                  <strong
+                    >호출자에게 원래 실패 context를 RPC 예외로
+                    전달합니다.</strong
+                  >
+                </p>
+              </div>
+            </div>
+          </section>
+          <div class="two-col">
+            <section class="callout">
+              <div class="callout-title">
+                CONTRACT · 선언된 실패 계약을 지키기
+              </div>
+              <p class="small">
+                내부 catch를 제거해 이미 선언된
+                <code>throws IOException</code>을 실제 동작과 일치시켰습니다.
+                <code>ObjectOutputStream</code>은 try-with-resources로 관리하고
+                정상 경로와 public signature는 유지했습니다.
+              </p>
+            </section>
+            <section class="callout">
+              <div class="callout-title">
+                BOUNDARY · 기록과 전달의 책임 분리
+              </div>
+              <p class="small">
+                서버에는 원본 stack trace를 기록하고, 호출자에게는
+                <code>InterpreterRPCException</code>으로 실패 context를
+                전달합니다. 예외를 <code>null</code> 반환으로 대체하지 않도록
+                했습니다.
+              </p>
+            </section>
+          </div>
+          <section class="section">
+            <h2>REGRESSION TEST STRATEGY</h2>
+            <div class="panel">
+              <div class="flow-row">
+                <div class="box">
+                  1st serialization<br /><strong>SUCCESS</strong>
+                </div>
+                <div class="arrow">→</div>
+                <div class="box">
+                  Server result 재직렬화<br /><strong>IOException</strong>
+                </div>
+                <div class="arrow">→</div>
+                <div class="box">
+                  Caller<br /><code>InterpreterRPCException</code>
+                </div>
+              </div>
+              <p class="caption">
+                #5312: 의도적으로 직렬화에 실패하는 객체로 예외 전달 검증.<br />#5349:
+                첫 직렬화 성공 → 서버의 두 번째 직렬화 실패를 재현.
+                MISSING_RESULT 대신 명시적 RPC 예외 전달을 검증.
+              </p>
+            </div>
+          </section>
+          <section class="section">
+            <h2>OTHER CONTRIBUTIONS</h2>
+            <p class="small">
+              테스트의 Frontend Build 의존성 제거 · 실행 실패 시
+              <code>System.out/err</code> 복구 등 안정성 개선.
+            </p>
+          </section>
+        </div>
+        <footer class="folio">
+          <span>변승은 · Backend Developer</span><span>03 / 04</span>
+        </footer>
+      </article>
+    </div>
+    <!-- === PAGE 4: IMPLEMENTED ARCHITECTURE AND CURRENT LIMITS === -->
+    <div class="sheet-wrap">
+      <article class="page technical" aria-label="포트폴리오 4페이지">
+        <header class="case-header">
+          <div class="eyebrow">PROJECT / NOTIFY-KIT</div>
+          <h1>Architecture &amp; Design Decisions</h1>
+          <p class="subtitle">
+            알림 저장과 외부 전송의 책임을 분리한 Spring Boot 라이브러리
+          </p>
+          <p class="lede">
+            알림과 전송 의도를 함께 저장하고, Outbox Worker와 교체 가능한
+            Sender로 전송을 분리했습니다.
+          </p>
+          <p class="source-line">
+            <a href="https://github.com/gyowoo1113/notify-kit"
+              >github.com/gyowoo1113/notify-kit</a
+            >
+          </p>
+        </header>
+        <div class="content-stack">
+          <section class="section">
+            <h2>ARCHITECTURE / PORT &amp; ADAPTER</h2>
+            <div class="core-panel">
+              <div class="label">notify-kit-core · 처리 로직 + Port 계약</div>
+              <div class="core-services">
+                <div class="box">
+                  <code>NotificationService</code>
+                  <div class="port-list">↓ NotificationRepository</div>
+                </div>
+                <div class="box">
+                  <code>OutboxProcessorService</code>
+                  <div class="port-list">
+                    ↓ OutboxRepository<br />↓ OutboxSender
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dependency-note">
+              ↑ Adapter가 Core의 Port를 구현 · Core는 JPA / SSE / Slack에 직접
+              의존하지 않음
+            </div>
+            <div class="adapter-grid">
+              <div class="panel">
+                <div class="label">SPRING JPA ADAPTER</div>
+                <p>Notification / Outbox 저장소 Adapter</p>
+                <p class="muted">↳ notifications / outbox_messages</p>
+              </div>
+              <div class="panel">
+                <div class="label">SPRING STARTER / DELIVERY</div>
+                <p>
+                  NotificationOutboxHandler → Outbox 저장<br />OutboxSender ←
+                  SSE / Slack 구현체
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="section">
+            <h2>RUNTIME / SAVE → COMMIT → DELIVER</h2>
+            <div class="transaction">
+              <div class="label">
+                <code>NotificationFacade.create()</code> · @Transactional
+              </div>
+              <div class="flow-row">
+                <div class="box">Notification save</div>
+                <div class="arrow">+</div>
+                <div class="box">Outbox(PENDING) save</div>
+                <div class="arrow">→</div>
+                <div class="box emphasis">COMMIT</div>
+              </div>
+            </div>
+            <div class="arrow down commit-drop">↓</div>
+            <div class="flow-row dispatch-route">
+              <div class="box">Scheduler</div>
+              <div class="arrow">→</div>
+              <div class="box">Worker</div>
+              <div class="arrow">→</div>
+              <div class="box emphasis">
+                Conditional claim<br /><code>PENDING → PROCESSING</code>
+              </div>
+            </div>
+            <div class="runtime-route flow-row">
+              <div class="box">
+                ↓ Claim 성공만 전송<br /><code>updated == 1</code>
+              </div>
+              <div class="arrow">→</div>
+              <div class="box"><code>OutboxSender</code><br />SSE / Slack</div>
+              <div class="arrow">→</div>
+              <div class="box">
+                SENT / RETRY / FAILED<br /><span class="muted"
+                  >RETRY = PENDING + nextRetryAt</span
+                >
+              </div>
+            </div>
+          </section>
+          <section class="section">
+            <h2>OUTBOX / STATE TRANSITIONS</h2>
+            <div class="state-grid">
+              <div class="box">PENDING</div>
+              <div class="arrow">→</div>
+              <div class="box emphasis">
+                PROCESSING<br /><span class="small">조건부 claim</span>
+              </div>
+              <div class="arrow">→</div>
+              <div class="state-outcomes">
+                <span>성공</span>
+                <div class="box">SENT</div>
+                <span>실패 · 재시도</span>
+                <div class="box">PENDING + nextRetryAt</div>
+                <span>한도 초과</span>
+                <div class="box">FAILED</div>
+              </div>
+            </div>
+            <p class="caption">
+              실패 시 retryCount 증가. 완료·재시도·최종 실패 전이는 모두
+              status=PROCESSING 조건으로 갱신합니다.
+            </p>
+          </section>
+          <section class="section">
+            <h2>THREE DESIGN DECISIONS</h2>
+            <div class="three-col decision-grid">
+              <div class="callout">
+                <div class="callout-title">01 · Transactional Outbox</div>
+                <p>
+                  DB 저장과 외부 전송의 실패 경계를 분리. 알림과 전송 의도를
+                  같은 트랜잭션에 저장합니다.
+                </p>
+              </div>
+              <div class="callout">
+                <div class="callout-title">02 · Claim before Send</div>
+                <p>
+                  여러 Worker가 같은 행을 조회해도 조건부 UPDATE의 영향 행 수로
+                  claim 성공 여부를 결정합니다.
+                </p>
+              </div>
+              <div class="callout">
+                <div class="callout-title">03 · Port-based Delivery</div>
+                <p>
+                  Core는 OutboxSender만 의존. AutoConfiguration이 설정에 따라
+                  SSE·Slack을 주입합니다.
+                </p>
+              </div>
+            </div>
+          </section>
+          <section class="section">
+            <h2>TRADE-OFFS / CURRENT LIMITATIONS</h2>
+            <div class="callout">
+              <p class="small">
+                외부 전송은 processor DB 트랜잭션 안에서 실행됩니다. Stale
+                PROCESSING 복구는 미구현입니다. SSE replay는 메모리·단일
+                프로세스 범위이며, 예외 유형별 재시도 정책은 구분하지 않습니다.
+              </p>
+            </div>
+          </section>
+        </div>
+        <footer class="folio">
+          <span>변승은 · Backend Developer</span><span>04 / 04</span>
+        </footer>
+      </article>
+    </div>
+    <script>
+      /* === PREVIEW SCALING AND LOCAL EDITING === */
+      const pages = [...document.querySelectorAll(".page")];
+      function fit() {
+        pages.forEach((page) => {
+          const wrap = page.parentElement;
+          const s = Math.min(1, (innerWidth - 24) / page.offsetWidth);
+          page.style.transform = "scale(" + s + ")";
+          page.style.transformOrigin = "top left";
+          wrap.style.width = page.offsetWidth * s + "px";
+          wrap.style.height = page.offsetHeight * s + "px";
+        });
+      }
+      addEventListener("resize", fit);
+      fit();
+      const editable = [...document.querySelectorAll("h1,h2,h3,.role,p,li")];
+      let editing = false;
+      const key = "portfolio-" + location.pathname;
+      try {
+        const saved = JSON.parse(localStorage.getItem(key) || "null");
+        if (saved)
+          editable.forEach((el, i) => {
+            if (saved[i] != null) el.innerHTML = saved[i];
+          });
+      } catch {}
+      function toggle() {
+        editing = !editing;
+        document.body.classList.toggle("editing", editing);
+        editable.forEach((el) => (el.contentEditable = String(editing)));
+        document.querySelector("#edit").textContent = editing
+          ? "Finish editing"
+          : "Edit text (E)";
+      }
+      document.querySelector("#edit").onclick = toggle;
+      document.addEventListener("input", () => {
+        try {
+          localStorage.setItem(
+            key,
+            JSON.stringify(editable.map((el) => el.innerHTML)),
+          );
+        } catch {}
+      });
+      function save() {
+        const clone = document.documentElement.cloneNode(true);
+        clone
+          .querySelectorAll("[contenteditable]")
+          .forEach((el) => el.removeAttribute("contenteditable"));
+        clone.querySelector("body").classList.remove("editing");
+        const url = URL.createObjectURL(
+          new Blob(["<!doctype html>\n" + clone.outerHTML], {
+            type: "text/html",
+          }),
+        );
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = location.pathname.split("/").pop();
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+      document.querySelector("#save").onclick = save;
+      document.addEventListener("keydown", (e) => {
+        if (e.key.toLowerCase() === "e" && !e.target.isContentEditable)
+          toggle();
+        if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+          e.preventDefault();
+          save();
+        }
+      });
+    </script>
+  </body>
+</html>
