@@ -886,20 +886,20 @@
               교육 정보시스템의 백엔드 개발 및 운영을 담당하고 있습니다.
             </p>
             <p class="achievement">
-              <strong>통계 데이터 연계·집계 자동화</strong><br />분산된 통계
-              데이터를 중앙 시스템과 연계하고, 주·월 단위로 수행하던 수작업
-              집계를 정기 배치로 전환했습니다.
+              <strong>월별 통계 집계 자동화</strong><br />전국 17개 시도의 월별 통계 집계 업무를
+              Spring Batch의 Job·Tasklet 기반 정기 배치로 자동화하고,
+              조회 시 사전 집계 결과를 활용하도록 개선했습니다.
             </p>
             <p class="achievement">
-              <strong>회원가입 흐름 및 데이터 정합성 개선</strong><br />가입
-              경로별로 달랐던 검증 기준을 추적·통합하고 가입 전 기존 사용자·계정
-              상태 검증을 추가해, 기존 중복 계정 약 300건을 정리하고 동일 원인의
-              재발을 방지했습니다.
+              <strong>회원가입 흐름 및 데이터 정합성 개선</strong><br />일반·네이버·카카오 로그인별 회원 식별 기준을
+              CI 기반으로 통합하고, 기존 중복 계정 약 300건에 대해 로그인 시
+              중복 검증과 순차 비활성화를 수행하는 로직을 구현했습니다.
             </p>
             <p class="achievement">
-              <strong>배포 사전 검증 자동화</strong><br />수작업으로 작성하던
-              배포 정보의 유효성 검증을 자동화해 월평균 3~4건 발생하던 소스 반영
-              오류를 1건 미만으로 줄였습니다.
+              <strong>공지 데이터 연계 장애 분석·복구</strong><br />Jennifer APM과 OpenShift 로그를 통해 총괄·시도
+              시스템의 독립 채번으로 인한 공지번호 충돌을 추적하고,
+              덮어써진 데이터를 복구했습니다. 이후 원본·자체 공지번호를 분리하고
+              연계 공지의 수정·삭제 처리 로직을 개선했습니다.
             </p>
           </section>
           <section class="section opensource">
@@ -954,8 +954,8 @@
             <h2>EDUCATION &amp; EXPERIENCE</h2>
             <p class="">
               <strong>한국공학대학교</strong> · 게임공학과 · 2019.03 —
-              2023.08<br /><strong>Open Source Contribution Academy</strong> ·
-              Apache Airflow / Yocto Project<br /><strong
+              2023.08<br /><strong>2026 오픈소스 컨트리뷰션 아카데미(참여형)</strong> · Apache Zeppelin 팀 · 장려상 · 정보통신산업진흥원장상 (팀 수상)<br />
+              <strong>2026·2025 오픈소스 컨트리뷰션 아카데미(체험형)</strong> · Apache Airflow / Yocto Project<br /><strong
                 >AWS Java Backend Course</strong
               >
               · 2023.06 — 2023.11
