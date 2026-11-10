@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>변승은 — 백엔드 개발 경력기술서</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Lora:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   Include this ENTIRE file in every presentation.
+   Slides are authored at 1920×1080 and scaled as a whole.
+   =========================================== */
+
+      /* 1. Lock the browser viewport */
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+      }
+
+      /* 2. Full-window deck viewport */
+      .deck-viewport {
+        position: fixed;
+        inset: 0;
+        overflow: hidden;
+        background: var(--stage-bg, #000);
+      }
+
+      /* 3. Fixed 16:9 design canvas.
+   JavaScript sets transform: translate(...) scale(...). */
+      .deck-stage {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        transform-origin: 0 0;
+        background: var(--slide-bg, #fff);
+      }
+
+      /* 4. Slides stack inside the fixed stage.
+   Content must be laid out at 1920×1080, not reflowed per device. */
+      .slide {
+        position: absolute;
+        inset: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        display: block;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        background: var(--slide-bg, #fff);
+      }
+
+      .slide.active,
+      .slide.visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
+      }
+
+      /* 5. Keep media inside authored slide bounds */
+      img,
+      video,
+      canvas,
+      svg {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      /* 6. Presentation chrome stays outside the slide design system */
+      .deck-controls {
+        position: fixed;
+        left: 50%;
+        bottom: 22px;
+        transform: translateX(-50%);
+        z-index: 1000;
+      }
+
+      /* 7. Print one fixed-size slide per page */
+      @media print {
+        html,
+        body {
+          width: 1920px;
+          height: auto;
+          overflow: visible;
+          background: #fff;
+        }
+
+        .deck-viewport {
+          position: static;
+          overflow: visible;
+          background: #fff;
+        }
+
+        .deck-stage {
+          position: static;
+          width: auto;
+          height: auto;
+          transform: none !important;
+          background: none;
+        }
+
+        .slide {
+          position: relative;
+          display: block !important;
+          visibility: visible !important;
+          opacity: 1 !important;
+          pointer-events: auto !important;
+          width: 1920px;
+          height: 1080px;
+          break-after: page;
+          page-break-after: always;
+        }
+
+        .slide:last-child {
+          break-after: auto;
+          page-break-after: auto;
+        }
+
+        .deck-controls {
+          display: none !important;
+        }
+      }
+
+      /* 8. Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          transition-duration: 0.2s !important;
+        }
+      }
+
+      /* === A4 DOCUMENT OVERRIDES ===
+   User-requested portrait document replaces the skill's widescreen stage.
+   Internal measurements stay fixed; only the whole sheet scales on narrow screens. */
+      :root {
+        --ink: #202a33;
+        --muted: #52606a;
+        --accent: #234f6c;
+        --line: #cbd2d6;
+        --tint: #f1f5f6;
+        --paper: #fff;
+        --body: "Noto Sans KR", sans-serif;
+        --heading: "IBM Plex Sans KR", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --space: 16px;
+        --radius: 0px;
+        --stage-bg: #e7eaed;
+        --page-bottom-safe: 28px;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: auto;
+        min-height: 100%;
+        overflow: auto;
+      }
+      body {
+        font-family: var(--body);
+        color: var(--ink);
+        font-size: 12.8px;
+        line-height: 1.65;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+        margin: 0;
+        padding: 28px 0 44px;
+      }
+      .sheet-wrap {
+        width: 210mm;
+        margin: 0 auto;
+      }
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 297mm;
+        padding: 44px 48px calc(46px + var(--page-bottom-safe));
+        background: var(--paper);
+        box-shadow: 0 2px 16px #18252e16;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 20px;
+        overflow: visible;
+      }
+      h1,
+      h2,
+      h3,
+      p,
+      ul {
+        margin: 0;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--heading);
+      }
+      h1 {
+        font-size: 29px;
+        line-height: 1.2;
+        letter-spacing: -1px;
+      }
+      h2 {
+        font-size: 10px;
+        letter-spacing: 1.4px;
+        color: var(--accent);
+        margin: 0 0 10px;
+        font-weight: 700;
+      }
+      h3 {
+        font-size: 15px;
+        line-height: 1.4;
+        margin-top: 12px;
+        font-weight: 700;
+      }
+      h2 + h3 {
+        margin-top: 0;
+      }
+      p {
+        margin-top: 7px;
+      }
+      strong {
+        font-weight: 650;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      code {
+        font-family: var(--mono);
+        font-size: 0.9em;
+      }
+      .role {
+        font-size: 13px;
+        color: var(--accent);
+        margin-top: 5px;
+        font-weight: 600;
+      }
+      .intro {
+        font-size: 13.7px;
+        line-height: 1.7;
+        margin: 14px 0 11px;
+        max-width: 660px;
+      }
+      .intro strong {
+        font-weight: 500;
+      }
+      .contacts {
+        font-size: 10px;
+        white-space: nowrap;
+        color: var(--muted);
+      }
+      .contacts code {
+        font-size: 9px;
+        color: var(--accent);
+        margin-right: 3px;
+      }
+      .body-grid {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 17px;
+      }
+      .section {
+        break-inside: avoid;
+        min-width: 0;
+      }
+      .section h2 {
+        border-top: 1px solid var(--line);
+        padding-top: 10px;
+      }
+      .date {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--muted);
+        margin-top: 3px;
+      }
+      .date strong {
+        font-weight: 400;
+      }
+      .achievement {
+        margin-top: 9px;
+      }
+      .achievement strong {
+        font-size: 12.8px;
+      }
+      ul {
+        padding-left: 17px;
+        margin-top: 8px;
+      }
+      li + li {
+        margin-top: 3px;
+      }
+      .case-ref {
+        font-family: var(--mono);
+        font-size: 10px;
+        color: var(--accent);
+        margin-top: 8px;
+      }
+      .education p {
+        font-size: 11.4px;
+        line-height: 1.9;
+      }
+      .folio {
+        position: absolute;
+        bottom: var(--page-bottom-safe);
+        left: 48px;
+        right: 48px;
+        display: flex;
+        justify-content: space-between;
+        font-family: var(--mono);
+        font-size: 8px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        padding-top: 7px;
+      }
+      /* === REUSABLE TECHNICAL COMPONENTS FOR LATER PAGES ===
+   No later-page content is rendered. Use section/h2/h3 for hierarchy;
+   callout for decisions/trade-offs; diagram with node/edge for real flows;
+   comparison for verification matrices; code-block for short excerpts. */
+      .callout {
+        background: var(--tint);
+        border-left: 3px solid var(--accent);
+        padding: 12px 14px;
+        border-radius: var(--radius);
+        margin-block: var(--space);
+      }
+      .callout-title {
+        font: 700 11px var(--heading);
+        color: var(--accent);
+      }
+      .diagram {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+      }
+      .diagram .node {
+        flex: 1;
+        padding: 10px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        text-align: center;
+        font-size: 11px;
+      }
+      .diagram .edge {
+        color: var(--accent);
+        font-family: var(--mono);
+      }
+      .comparison {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      .comparison th,
+      .comparison td {
+        padding: 8px 10px;
+        text-align: left;
+        border-bottom: 1px solid var(--line);
+        vertical-align: top;
+      }
+      .comparison th {
+        background: var(--tint);
+        font-weight: 600;
+      }
+      .code-block {
+        font: 10.5px/1.65 var(--mono);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        padding: 14px;
+        background: var(--tint);
+        border: 1px solid var(--line);
+        tab-size: 2;
+      }
+      .code-block .comment {
+        color: var(--muted);
+      }
+      /* === OPTIONAL INLINE TEXT EDITING === */
+      .edit-tools {
+        position: fixed;
+        top: 8px;
+        left: 8px;
+        z-index: 100;
+        opacity: 0;
+        transition: opacity 0.15s;
+      }
+      .edit-tools:hover,
+      .edit-tools:focus-within,
+      .editing .edit-tools {
+        opacity: 1;
+      }
+      .edit-tools button {
+        border: 1px solid #9eaab2;
+        background: #fff;
+        padding: 7px 10px;
+        color: #253744;
+        cursor: pointer;
+        font: 12px var(--body);
+      }
+      [contenteditable="true"] {
+        outline: 1px dashed #91a9b9;
+        outline-offset: 4px;
+      }
+      /* === PRINT FOUNDATION: PREVIEW ONLY, NO PDF GENERATED === */
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          height: auto;
+          padding: 0;
+          background: white;
+          overflow: visible;
+        }
+        .sheet-wrap {
+          width: 210mm !important;
+          height: auto !important;
+          margin: 0;
+        }
+        .page {
+          transform: none !important;
+          box-shadow: none;
+          width: 210mm;
+          height: 297mm;
+          break-after: page;
+          print-color-adjust: exact;
+          -webkit-print-color-adjust: exact;
+        }
+        .edit-tools {
+          display: none;
+        }
+      }
+      /* === A: LINEAR EDITORIAL SYSTEM === */
+      .page {
+        border-top: 5px solid var(--accent);
+        padding-top: 36px;
+      }
+      .header {
+        position: relative;
+      }
+      .role {
+        position: absolute;
+        right: 0;
+        top: 6px;
+      }
+      .section h2 {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border: 0;
+        padding: 0;
+      }
+      .section h2:after {
+        content: "";
+        flex: 1;
+        border-top: 1px solid var(--line);
+      }
+      .work h3,
+      .opensource h3 {
+        display: inline-block;
+      }
+      .date {
+        float: right;
+        margin-top: 3px;
+      }
+      .opensource h3:nth-of-type(2) {
+        margin-top: 13px;
+      }
+      .education h2 {
+        margin-bottom: 5px;
+      }
+      /* === SHARED MULTI-PAGE DOCUMENT SYSTEM ===
+   Page 1 retains its original markup and rules. Technical pages reuse its
+   tokens, content width, section rules, typography and footer placement. */
+      .sheet-wrap + .sheet-wrap {
+        margin-top: 28px;
+      }
+      .technical {
+        gap: 18px;
+      }
+      .technical .case-header h1 {
+        font-size: 24px;
+        line-height: 1.3;
+        letter-spacing: -0.6px;
+      }
+      .technical .eyebrow {
+        font: 500 10px var(--mono);
+        letter-spacing: 0.6px;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+      .technical .subtitle {
+        font: 600 15px/1.5 var(--heading);
+        color: var(--accent);
+        margin-top: 6px;
+      }
+      .technical .lede {
+        margin-top: 10px;
+      }
+      .technical .content-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        min-height: 0;
+      }
+      .technical .section h2 {
+        margin-bottom: 8px;
+      }
+      .technical .callout {
+        margin: 0;
+        padding: 10px 13px;
+      }
+      .technical .callout p {
+        margin-top: 4px;
+      }
+      .technical .small {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .technical .muted {
+        color: var(--muted);
+      }
+      .technical .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .technical .three-col {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .technical .label {
+        font: 600 10px/1.5 var(--heading);
+        letter-spacing: 0.6px;
+        color: var(--accent);
+      }
+      .technical .box {
+        border: 1px solid var(--line);
+        padding: 6px 8px;
+        background: var(--paper);
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.5;
+        min-width: 0;
+      }
+      .technical .box code {
+        font-size: 11px;
+      }
+      .technical .box.emphasis {
+        border-color: var(--accent);
+        background: var(--tint);
+        font-weight: 600;
+      }
+      .technical .arrow {
+        color: var(--accent);
+        text-align: center;
+        font: 16px/1.2 var(--body);
+        align-self: center;
+      }
+      .technical .arrow.down {
+        line-height: 16px;
+        height: 16px;
+      }
+      .technical .flow-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .technical .flow-row > .box {
+        flex: 1;
+      }
+      .technical .flow-row > .arrow {
+        flex: 0 0 16px;
+      }
+      .technical .panel {
+        border: 1px solid var(--line);
+        padding: 13px;
+      }
+      .technical .caption {
+        font-size: 11.5px;
+        color: var(--muted);
+        margin-top: 8px;
+      }
+      .technical .comparison {
+        font-size: 11.5px;
+      }
+      .technical .comparison th,
+      .technical .comparison td {
+        padding: 6px 9px;
+      }
+      .technical .comparison td:first-child {
+        width: 35%;
+      }
+      .technical .source-line {
+        font: 10px/1.6 var(--mono);
+        color: var(--muted);
+        margin-top: 6px;
+      }
+      /* === EXECUTION BOUNDARIES AND BRANCHES === */
+      .boundary {
+        border: 2px solid var(--accent);
+        padding: 12px;
+        background: var(--tint);
+      }
+      .boundary-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--accent);
+        margin-bottom: 9px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .boundary-title span {
+        font: 500 10px var(--mono);
+      }
+      .guard-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 16px;
+      }
+      .guard-grid .guard-source {
+        grid-column: 1 / -1;
+      }
+      .branch {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+      .branch-label {
+        font: 500 11px var(--mono);
+        color: var(--accent);
+        text-align: center;
+      }
+      .drop {
+        border-style: dashed !important;
+      }
+      .validation-tail {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        padding: 0 14px;
+      }
+      .validation-tail .pass-note {
+        align-self: center;
+        font-size: 11.5px;
+        color: var(--muted);
+        padding-left: 8px;
+      }
+      /* === CONNECTED INVESTIGATION === */
+      .evolution {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+      }
+      .evolution .phase {
+        padding: 12px;
+        border: 1px solid var(--line);
+        display: flex;
+        flex-direction: column;
+      }
+      .evolution .phase.final {
+        border: 2px solid var(--accent);
+        padding: 11px;
+        background: var(--tint);
+      }
+      .phase-title {
+        font: 600 12px/1.4 var(--heading);
+        color: var(--accent);
+        margin-bottom: 10px;
+      }
+      .technical .phase .box {
+        padding: 6px 5px;
+      }
+      .phase .result {
+        margin-top: auto;
+        padding-top: 12px;
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .phase .box code {
+        font-size: 10.5px;
+      }
+      .investigation-link {
+        display: grid;
+        grid-template-columns: 1fr 20px 1fr;
+        gap: 12px;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .investigation-link > div:not(.arrow) {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 8px;
+        font-size: 12px;
+      }
+      /* === MODULE ARCHITECTURE AND OUTBOX LIFECYCLE === */
+      .core-panel {
+        border: 2px solid var(--accent);
+        padding: 8px 12px;
+        background: var(--tint);
+      }
+      .core-services {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 12px;
+        margin-top: 7px;
+      }
+      .core-services .box {
+        padding: 7px;
+      }
+      .port-list {
+        font: 11px/1.65 var(--mono);
+        margin-top: 3px;
+        color: var(--accent);
+      }
+      .adapter-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.35fr;
+        gap: 12px;
+        margin-top: 9px;
+      }
+      .adapter-grid .panel {
+        padding: 9px 10px;
+      }
+      .adapter-grid p {
+        font-size: 11.5px;
+        margin-top: 4px;
+      }
+      .dependency-note {
+        text-align: center;
+        font-size: 10.5px;
+        color: var(--accent);
+        padding-top: 5px;
+      }
+      .transaction {
+        border: 1px solid var(--accent);
+        padding: 9px 12px;
+        background: var(--tint);
+      }
+      .transaction .flow-row {
+        margin-top: 7px;
+      }
+      .runtime-route {
+        margin-top: 8px;
+      }
+      .dispatch-route {
+        flex-direction: row-reverse;
+      }
+      .dispatch-route > .arrow {
+        transform: rotate(180deg);
+      }
+      .technical .commit-drop {
+        width: 30.5%;
+        margin-left: auto;
+      }
+      .runtime-route .box {
+        font-size: 11.5px;
+        padding: 7px 5px;
+      }
+      .state-grid {
+        display: grid;
+        grid-template-columns: 1fr 20px 1.1fr 20px 2fr;
+        gap: 6px;
+        align-items: center;
+      }
+      .state-outcomes {
+        display: grid;
+        grid-template-columns: 88px 1fr;
+        gap: 5px 7px;
+        align-items: center;
+        font-size: 11px;
+      }
+      .technical .state-outcomes .box {
+        padding: 2px 6px;
+        font-size: 11px;
+      }
+      .state-outcomes > span {
+        white-space: nowrap;
+      }
+      .decision-grid .callout {
+        padding: 9px 10px;
+      }
+      .decision-grid .callout-title {
+        font-size: 11px;
+      }
+      .decision-grid p {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      @media print {
+        .sheet-wrap + .sheet-wrap {
+          margin-top: 0;
+        }
+        .sheet-wrap {
+          break-after: page;
+          page-break-after: always;
+          break-inside: avoid;
+        }
+        .sheet-wrap:last-of-type {
+          break-after: auto;
+          page-break-after: auto;
+        }
+        .page {
+          break-after: auto;
+          page-break-after: auto;
+        }
+      }
+      .reply-context .content-stack {
+        gap: 10px;
+      }
+      .reply-context .panel {
+        padding: 9px 11px;
+      }
+      .reply-context .phase-title {
+        margin-bottom: 7px;
+      }
+      .reply-context .content-stack {
+        font-size: 11.5px;
+        line-height: 1.6;
+      }
+      .reply-context .comparison th,
+      .reply-context .comparison td {
+        padding: 5px 9px;
+      }
+      .reply-context .case-header h1 {
+        font-size: 22px;
+      }
+      /* Career document: fixed, consistent typography for A4 submission. */
+      .career-document .page { gap: 20px; font-size: 13px; line-height: 1.7; }
+      .career-document .header h1 { font-size: 29px; line-height: 1.2; letter-spacing: -1px; }
+      .career-document .role { font-size: 13px; line-height: 1.5; }
+      .career-document .intro { font-size: 13px; line-height: 1.7; margin: 14px 0 10px; }
+      .career-document .contacts { font-size: 12px; line-height: 1.7; white-space: normal; }
+      .career-document .contacts strong { color: var(--ink); }
+      .career-document .body-grid,
+      .career-document .content-stack { display: flex; flex-direction: column; justify-content: flex-start; gap: 24px; min-height: 0; }
+      .career-document .section h2 { font-size: 10px; letter-spacing: 1.4px; margin-bottom: 9px; }
+      .career-document .section h3 { display: block; font-size: 14px; line-height: 1.45; margin: 14px 0 0; }
+      .career-document .project-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+      .career-document .project-heading h3 { margin: 0; font-size: 15px; }
+      .career-document .date { float: none; flex-shrink: 0; font: 11.5px/1.6 var(--mono); margin: 0; color: var(--muted); }
+      .career-document .source-line { font: 11.5px/1.6 var(--body); color: var(--muted); margin-top: 6px; }
+      .career-document .section p { margin-top: 6px; }
+      .career-document ul { padding-left: 17px; margin-top: 7px; }
+      .career-document li + li { margin-top: 5px; }
+      .career-document .skills-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 6px 22px; }
+      .career-document .skills-grid p { margin: 0; }
+      .career-document .skills-grid strong { display: inline-block; color: var(--accent); margin-right: 6px; }
+      .career-document .folio { font-size: 9px; }
+      @media print {
+        .career-document .sheet-wrap:last-of-type .page {
+          break-after: auto;
+          page-break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body class="career-document">
+    <div class="edit-tools">
+      <button id="edit">Edit text (E)</button><button id="save">Save HTML</button>
+    </div>
+    <div class="sheet-wrap">
+      <main class="page career-summary" aria-label="경력기술서 1페이지">
+        <header class="header">
+          <h1>변승은</h1>
+          <p class="role">Java / Spring Backend Developer</p>
+          <p class="intro">공공 교육행정 시스템에서 회원 식별체계 및 결재 처리 로직 개선, 데이터 연계 장애 분석·복구, 통계 배치 자동화를 수행해 온 Java/Spring 백엔드 개발자입니다.</p>
+          <p class="contacts"><strong>소프트아이텍</strong> · 2024.06 — 현재<br />백엔드 개발 및 시스템 기능개선·운영</p>
+        </header>
+        <div class="body-grid">
+          <section class="section">
+            <h2>SKILLS / 기술 스택</h2>
+            <div class="skills-grid">
+              <p><strong>Backend</strong> Java · Spring · MyBatis</p>
+              <p><strong>Database</strong> DB2 · Oracle</p>
+              <p><strong>Frontend</strong> Angular · TypeScript</p>
+              <p><strong>Operations</strong> Jennifer APM · OpenShift(배포·로그 확인)</p>
+            </div>
+          </section>
+          <section class="section work">
+            <h2>PROJECT 01 / 나이스 기능개선</h2>
+            <div class="project-heading"><h3>현장 활용도 제고를 위한 나이스 기능개선</h3><p class="date">2026.02 — 2026.10</p></div>
+            <p class="source-line">Java · Spring · MyBatis · DB2 · Angular · TypeScript</p>
+            <h3>결재 단위 확장과 상태 전환·유형 처리 공통화</h3>
+            <ul>
+              <li>학급 단위 결재를 학생 단위까지 확장하고 유형 전환 시 기존 결재를 먼저 취소하도록 처리 규칙을 설계·구현하여 중복 결재 방지</li>
+              <li>8개 화면의 하드코딩·분기 로직을 분석하고 초·중·고·특수 4개 학교급별 DB 구조에 맞춰 결재유형 처리를 공통화하여 신규 유형 추가 시 수정 범위 축소</li>
+            </ul>
+            <h3>출결 변경이력 저장·조회 구조 설계 참여</h3>
+            <ul>
+              <li>고빈도 출결 처리의 DB 부하를 고려하여 업무 데이터와 변경이력을 별도 스키마로 분리하는 저장 구조 설계 참여</li>
+              <li>조회 정보를 이력 저장 시점에 함께 적재하여 업무 테이블과의 추가 JOIN 없이 단일 쿼리로 조회하는 비정규화 구조 설계 참여</li>
+            </ul>
+            <h3>Angular 화면 기능개선</h3>
+            <p>출석인정결석 선택·상태별 아이콘 표시 구현 및 학교생활기록부 양식 개정 차수별 표시 항목·레이아웃 분기 반영</p>
+          </section>
+          <section class="section">
+            <h2>OPEN SOURCE / 오픈소스 기여</h2>
+            <ul>
+              <li><strong>Apache Zeppelin</strong> · 2026.07 — 현재 · PR 8건 머지<br />서버·WebSocket 영역의 오류 처리 및 입력 검증 개선<br />· NotebookService 경로 처리 일원화 및 상대 경로 검증·회귀 테스트 추가 (<a href="https://github.com/apache/zeppelin/pull/5459">PR #5459 · ZEPPELIN-6692</a>)<br />· InfluxDB 토큰 누락·공백 입력의 예외 처리 및 테스트 보완 (<a href="https://github.com/apache/zeppelin/pull/5301">PR #5301 · ZEPPELIN-6475</a>)</li>
+              <li><strong>Apache Airflow</strong> · 2026.04 — 2026.06<br />UI 국제화(i18n) 기여 및 코드 리뷰 참여</li>
+            </ul>
+            <p class="source-line">주요 케이스는 별도 제출 포트폴리오 참조</p>
+          </section>
+        </div>
+        <footer class="folio"><span>변승은 · Backend Developer · 경력기술서</span><span>01 / 02</span></footer>
+      </main>
+    </div>
+    <div class="sheet-wrap">
+      <article class="page technical" aria-label="경력기술서 2페이지">
+        <header class="header case-header">
+          <h1>변승은</h1>
+          <p class="role">Java / Spring Backend Developer</p>
+        </header>
+        <div class="content-stack">
+          <section class="section work">
+            <h2>PROJECT 02 / 포털 백엔드 기능개선 및 운영</h2>
+            <div class="project-heading"><h3>교육행정데이터통합관리시스템 운영</h3><p class="date">2025.06 — 2025.12</p></div>
+            <p class="source-line">Java · Spring · MyBatis · DB2 · Jennifer APM · OpenShift(배포·로그 확인)</p>
+            <h3>CI 기반 회원 식별과 중복 계정 처리</h3>
+            <ul>
+              <li>일반·네이버·카카오 로그인별 가입 흐름을 분석하고 CI 기준으로 동일 회원을 식별하도록 로직을 설계·구현하여 이메일 기반 식별의 한계 보완 및 로그인 경로 간 중복 가입 방지</li>
+              <li>CI 미보유 회원의 추가 약관 동의·CI 수집 절차를 도입하고 최초 로그인 계정을 대표 계정으로 유지하는 인증·계정 연결 로직 구현</li>
+              <li>운영 데이터에서 확인된 기존 중복 계정 약 300건에 대해 로그인 시 CI 중복 검증으로 순차 비활성화하는 처리 구조 구현</li>
+            </ul>
+            <h3>공지 데이터 복구와 연계 식별자 충돌 해결</h3>
+            <ul>
+              <li>Jennifer APM과 OpenShift 로그를 추적하여 총괄·시도 시스템의 독립 채번에 따른 공지번호 충돌이 데이터 덮어쓰기 원인임을 확인</li>
+              <li>Jennifer APM의 공지 등록·수정 요청 기록을 추적하여 덮어써진 공지 데이터 복구</li>
+              <li>총괄 원본 공지번호와 시도 자체 공지번호를 별도 컬럼으로 분리하고 연계 여부를 함께 관리하여 독립 채번에 따른 식별자 충돌 방지</li>
+              <li>원본 공지번호로 기존 연계 공지를 식별하도록 처리 로직을 개선하여 최초 등록 이후의 수정·삭제 요청을 동일 공지에 반영</li>
+            </ul>
+          </section>
+          <section class="section work">
+            <h2>PROJECT 03 / 통계 집계·배치 자동화</h2>
+            <div class="project-heading"><h3>K-에듀파인 선진화 구현</h3><p class="date">2024.07 — 2025.02</p></div>
+            <p class="source-line">Java · Spring · MyBatis · Oracle</p>
+            <ul>
+              <li>집계용 DB 테이블과 통계 데이터 저장 로직을 설계·구현하여 수작업 통계 집계·Excel 작성 업무를 월별 정기 배치로 전환</li>
+              <li>기존 누계와 신규 월별 실적의 단순 합산을 대상 월까지의 원천 데이터 재집계·월별 누계 저장 방식으로 변경하여 조회 기준월별 누계 불일치 해소</li>
+              <li>각 시도에 월 1회 야간 집계 배치를 적용하고 조회·Excel 출력은 사전 집계 결과를 읽도록 구현하여 조회 시 추가 집계가 필요 없는 구조로 전환</li>
+              <li>배치 실행 시간은 부하가 가장 높은 시도 기준 1회 약 60~90분 소요</li>
+            </ul>
+          </section>
+          <section class="section">
+            <h2>OTHER / 기타 참여 사업</h2>
+            <div class="project-heading"><h3>25~26 K-에듀파인 운영 및 유지관리</h3><p class="date">2025.03 — 2025.05</p></div>
+            <p>보고서 조회 조건 및 출력 오류 관련 SQL 수정</p>
+          </section>
+        </div>
+        <footer class="folio"><span>변승은 · Backend Developer · 경력기술서</span><span>02 / 02</span></footer>
+      </article>
+    </div>
+    <script>
+      /* === PREVIEW SCALING AND LOCAL EDITING === */
+      const pages = [...document.querySelectorAll(".page")];
+      function fit() {
+        pages.forEach((page) => {
+          const wrap = page.parentElement;
+          const s = Math.min(1, (innerWidth - 24) / page.offsetWidth);
+          page.style.transform = "scale(" + s + ")";
+          page.style.transformOrigin = "top left";
+          wrap.style.width = page.offsetWidth * s + "px";
+          wrap.style.height = page.offsetHeight * s + "px";
+        });
+      }
+      addEventListener("resize", fit);
+      fit();
+      const editable = [...document.querySelectorAll("h1,h2,h3,.role,p,li")];
+      let editing = false;
+      // Keep browser edits separate for each version of the document text.
+      // Otherwise a stale saved draft can hide later changes to this HTML file.
+      const sourceText = editable.map((el) => el.innerHTML).join("\u001f");
+      let sourceRevision = 2166136261;
+      for (let i = 0; i < sourceText.length; i++) {
+        sourceRevision = Math.imul(sourceRevision ^ sourceText.charCodeAt(i), 16777619) >>> 0;
+      }
+      const key = "career-draft-" + location.pathname + "-" + sourceRevision.toString(16);
+      try {
+        const saved = JSON.parse(localStorage.getItem(key) || "null");
+        if (saved)
+          editable.forEach((el, i) => {
+            if (saved[i] != null) el.innerHTML = saved[i];
+          });
+      } catch {}
+      function toggle() {
+        editing = !editing;
+        document.body.classList.toggle("editing", editing);
+        editable.forEach((el) => (el.contentEditable = String(editing)));
+        document.querySelector("#edit").textContent = editing
+          ? "Finish editing"
+          : "Edit text (E)";
+      }
+      document.querySelector("#edit").onclick = toggle;
+      document.addEventListener("input", () => {
+        try {
+          localStorage.setItem(
+            key,
+            JSON.stringify(editable.map((el) => el.innerHTML)),
+          );
+        } catch {}
+      });
+      function save() {
+        const clone = document.documentElement.cloneNode(true);
+        clone
+          .querySelectorAll("[contenteditable]")
+          .forEach((el) => el.removeAttribute("contenteditable"));
+        clone.querySelector("body").classList.remove("editing");
+        const url = URL.createObjectURL(
+          new Blob(["<!doctype html>\n" + clone.outerHTML], {
+            type: "text/html",
+          }),
+        );
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = location.pathname.split("/").pop();
+        a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }
+      document.querySelector("#save").onclick = save;
+      document.addEventListener("keydown", (e) => {
+        if (e.key.toLowerCase() === "e" && !e.target.isContentEditable)
+          toggle();
+        if ((e.ctrlKey || e.metaKey) && e.key === "s") {
+          e.preventDefault();
+          save();
+        }
+      });
+    </script>
+  </body>
+</html>
