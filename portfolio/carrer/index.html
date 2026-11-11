@@ -867,8 +867,8 @@
       .career-document .section p { margin-top: 6px; }
       .career-document ul { padding-left: 17px; margin-top: 7px; }
       .career-document li + li { margin-top: 5px; }
-      .career-document .skills-grid { display: grid; grid-template-columns: 1fr 1.35fr; gap: 6px 22px; }
-      .career-document .skills-grid p { margin: 0; }
+      .career-document .skills-grid { display: grid; grid-template-columns: max-content max-content; justify-content: start; gap: 6px 24px; }
+      .career-document .skills-grid p { margin: 0; white-space: nowrap; }
       .career-document .skills-grid strong { display: inline-block; color: var(--accent); margin-right: 6px; }
       .career-document .folio { font-size: 9px; }
       @media print {
@@ -888,7 +888,7 @@
         <header class="header">
           <h1>변승은</h1>
           <p class="role">Backend Developer</p>
-          <p class="intro">공공 교육행정 시스템에서 회원 식별체계 및 결재 처리 로직 개선, 데이터 연계 장애 분석·복구, 통계 배치 자동화를 수행해 온 Java/Spring 백엔드 개발자입니다.</p>
+          <p class="intro">데이터 정합성과 안정적인 처리 흐름을 고려해 백엔드 기능을 설계·개선해 온 Java/Spring 개발자입니다. 회원 식별체계와 결재 처리 로직 개선, 데이터 연계 장애 분석·복구, 통계 배치 자동화를 수행했습니다.</p>
           <p class="contacts"><strong>소프트아이텍</strong> · 2024.06 — 현재<br />백엔드 개발 및 시스템 기능개선·운영</p>
         </header>
         <div class="body-grid">
@@ -907,13 +907,13 @@
             <p class="source-line">Java · Spring · MyBatis · DB2 · PostgreSQL · Angular · TypeScript</p>
             <h3>결재 단위 확장과 상태 전환·유형 처리 공통화</h3>
             <ul>
-              <li>학급 단위 결재를 학생 단위까지 확장하고 유형 전환 시 기존 결재를 먼저 취소하도록 처리 규칙을 설계·구현하여 중복 결재 방지</li>
+              <li>학급 단위 결재를 학생 단위로 확장하고, 유형 전환 시 기존 결재를 먼저 취소하도록 처리 규칙을 설계·구현하여 중복 결재 방지</li>
               <li>8개 화면의 하드코딩·분기 로직을 분석하고 초·중·고·특수 4개 학교급별 DB 구조에 맞춰 결재유형 처리를 공통화하여 신규 유형 추가 시 수정 범위 축소</li>
             </ul>
-            <h3>출결 변경이력 저장·조회 구조 설계 참여</h3>
+            <h3>출결 변경이력 저장·조회 구조 설계</h3>
             <ul>
-              <li>고빈도 출결 처리의 DB 부하를 고려하여 업무 데이터와 변경이력을 별도 스키마로 분리하는 저장 구조 설계 참여</li>
-              <li>조회 정보를 이력 저장 시점에 함께 적재하여 업무 테이블과의 추가 JOIN 없이 단일 쿼리로 조회하는 비정규화 구조 설계 참여</li>
+              <li>변경 당시 데이터 정합성과 업무 DB I/O 부하를 고려하여 기존 교무업무 DB와 별도 DB2 이력 DB 저장 방안 비교·설계</li>
+              <li>DB 간 직접 JOIN이 제한되는 환경에서 변경 당시의 학생·학급·과목 정보를 별도 이력 DB에 저장하고 단일 쿼리로 조회하는 비정규화 구조 설계</li>
             </ul>
             <h3>Angular 화면 기능개선</h3>
             <p>출석인정결석 선택·상태별 아이콘 표시 구현 및 학교생활기록부 양식 개정 차수별 표시 항목·레이아웃 분기 반영</p>
@@ -922,7 +922,7 @@
             <h2>OPEN SOURCE / 오픈소스 기여</h2>
             <ul>
               <li><strong>Apache Zeppelin</strong> · 2026.07 — 현재 · PR 8건 머지<br />서버·WebSocket 영역의 오류 처리 및 입력 검증 개선<br />· NotebookService 경로 처리 일원화 및 상대 경로 검증·회귀 테스트 추가 (<a href="https://github.com/apache/zeppelin/pull/5459">PR #5459 · ZEPPELIN-6692</a>)<br />· InfluxDB 토큰 누락·공백 입력의 예외 처리 및 테스트 보완 (<a href="https://github.com/apache/zeppelin/pull/5301">PR #5301 · ZEPPELIN-6475</a>)</li>
-              <li><strong>Apache Airflow</strong> · 2026.04 — 2026.06<br />UI 국제화(i18n) 기여 및 코드 리뷰 참여</li>
+              <li><strong>Apache Airflow</strong> · 2026.04 — 2026.06<br />한국 Airflow 사용자 커뮤니티의 번역 용어 논의 결과를 UI 번역에 반영하고 PR 제출 후 머지 완료</li>
             </ul>
             <p class="source-line">주요 케이스는 별도 제출 포트폴리오 참조</p>
           </section>
@@ -943,7 +943,7 @@
             <p class="source-line">Java · Spring · MyBatis · DB2 · Jennifer APM · OpenShift(배포·로그 확인)</p>
             <h3>CI 기반 회원 식별과 중복 계정 처리</h3>
             <ul>
-              <li>일반·네이버·카카오 로그인별 가입 흐름을 분석하고 CI 기준으로 동일 회원을 식별하도록 로직을 설계·구현하여 이메일 기반 식별의 한계 보완 및 로그인 경로 간 중복 가입 방지</li>
+              <li>이메일 기반 회원 식별의 한계를 분석하고, 일반·네이버·카카오 로그인 간 CI 기반 통합 식별 및 중복 가입 방지 로직 설계·구현</li>
               <li>CI 미보유 회원의 추가 약관 동의·CI 수집 절차를 도입하고 최초 로그인 계정을 대표 계정으로 유지하는 인증·계정 연결 로직 구현</li>
               <li>운영 데이터에서 확인된 기존 중복 계정 약 300건에 대해 로그인 시 CI 중복 검증으로 순차 비활성화하는 처리 구조 구현</li>
             </ul>
@@ -962,14 +962,15 @@
             <ul>
               <li>Spring Batch의 Job·Tasklet 기반 월별 통계 집계 로직과 집계용 DB 테이블을 설계·구현하여 기존 수작업 통계 집계 업무를 자동화</li>
               <li>기존 누계와 신규 월별 실적의 단순 합산을 대상 월까지의 원천 데이터 재집계·월별 누계 저장 방식으로 변경하여 조회 기준월별 누계 불일치 해소</li>
-              <li>17개 시도별 월 1회 야간 통계 집계 배치를 구성하고, 조회·Excel 출력 시 사전 집계 결과를 활용하여 반복 집계가 필요 없는 구조로 개선</li>
-              <li>17개 시도의 집계 결과가 교육부로 연계되는 시스템 환경에서 부하가 가장 높은 시도 기준 배치 1회 실행에 약 60~90분 소요</li>
+              <li>17개 시도별 월 1회 야간 배치로 집계를 정기화하고, 사전 집계 결과를 조회·Excel 출력에 활용하여 반복 집계 제거</li>
+              <li>ESB 송신 테이블을 추가하고, 통계 집계 결과를 해당 테이블에 적재하는 로직 구현</li>
+              <li>기존 마스터 연계 테이블과 ESB 실행 체계를 활용하여 교육부 수신 테이블로 DB-to-DB 연계 처리</li>
             </ul>
           </section>
           <section class="section">
             <h2>OTHER / 기타 참여 사업</h2>
             <div class="project-heading"><h3>25~26 K-에듀파인 운영 및 유지관리</h3><p class="date">2025.03 — 2025.05</p></div>
-            <p>보고서 조회 조건 및 출력 오류 관련 SQL 수정</p>
+            <p>보고서 최종 합계의 집계값 누락 원인을 분석하고 ROLLUP/CUBE를 활용하여 집계 SQL 보완</p>
           </section>
         </div>
         <footer class="folio"><span>변승은 · Backend Developer · 경력기술서</span><span>02 / 02</span></footer>
