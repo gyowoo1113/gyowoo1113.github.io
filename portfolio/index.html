@@ -846,9 +846,26 @@
       .reply-context .comparison td {
         padding: 5px 9px;
       }
+      .reply-context .verification-table {
+        table-layout: fixed;
+        font-size: 10px;
+        line-height: 1.6;
+      }
+      .reply-context .verification-table th,
+      .reply-context .verification-table td {
+        padding: 7px 6px;
+        white-space: nowrap;
+        vertical-align: middle;
+      }
+      .reply-context .verification-table th:first-child,
+      .reply-context .verification-table td:first-child {
+        width: 25%;
+      }
       .reply-context .case-header h1 {
         font-size: 22px;
       }
+          .opensource .pr-ref { font-size: 0.78em; font-weight: 400; white-space: nowrap; color: inherit; text-decoration: none; }
+      .opensource .pr-ref:hover { text-decoration: underline; }
     </style>
   </head>
   <body>
@@ -905,32 +922,35 @@
           <section class="section opensource">
             <h2>OPEN SOURCE</h2>
             <h3>Apache Zeppelin · Contributor</h3>
-            <p class="date"><strong>2026.07 — Present</strong></p>
+            <p class="date"><strong>2026.07 — Present · PR 8건 머지</strong></p>
             <p class="">
               대규모 기존 코드베이스의 실행 흐름과 계층 간 책임을 추적하며 서버
               및 WebSocket 영역을 개선했습니다.
             </p>
             <ul>
               <li>
-                WebSocket 수신 경계에
-                <strong>OP 기반 Runtime Validation</strong>을 추가하고 Handler
-                오류 흐름 개선
+                WebSocket 수신 경계에 <strong>OP 기반 Runtime Validation</strong>을
+                적용하여 비정상 payload의 Handler 전달 차단 <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5453" target="_blank" rel="noopener noreferrer">(#5453)</a>
               </li>
               <li>
-                Serialization 실패가 RPC 경계를 지나며 원인을 잃는 흐름을 추적해
-                <strong>Exception Propagation</strong> 개선
+                Serialization·RPC 경계에서 예외가 소실되는 문제를 분석하고
+                <strong>실패 원인 전파</strong> 개선 <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5312" target="_blank" rel="noopener noreferrer">(#5312)</a> <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5349" target="_blank" rel="noopener noreferrer">(#5349)</a>
               </li>
               <li>
-                테스트의 Frontend Build 의존성 제거, 실행 실패 시
-                <code>System.out/err</code> 복구 등 안정성 개선
+                <code>noteId</code> 기반 응답 대상 검증으로 지연 응답이
+                다른 Notebook 상태를 변경하는 문제 방지 <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5487" target="_blank" rel="noopener noreferrer">(#5487)</a>
+              </li>
+              <li>
+                테스트의 Frontend Build 의존성 제거 및 실행 실패 시
+                <code>System.out/err</code> 복구 등 테스트 안정성 개선 <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5314" target="_blank" rel="noopener noreferrer">(#5314)</a> <a class="pr-ref" href="https://github.com/apache/zeppelin/pull/5418" target="_blank" rel="noopener noreferrer">(#5418)</a>
               </li>
             </ul>
-            <p class="case-ref"><strong>Case Study → P.2–4</strong></p>
+            <p class="case-ref"><strong>Case Study → P.2–3</strong></p>
             <h3>Apache Airflow · Contributor</h3>
             <p class="date"><strong>2026.04 — 2026.06</strong></p>
             <p class="">
-              Airflow 개발 환경(Breeze) 내에서 UI 국제화(i18n)에 기여하고, 기존
-              테스트 분석·보완 및 코드 리뷰 과정에 참여했습니다.
+              한국 Airflow 사용자 커뮤니티의 번역 용어 논의 결과를
+              UI 국제화(i18n)에 반영하고 PR 제출 후 머지 완료 <a class="pr-ref" href="https://github.com/apache/airflow/pull/66272" target="_blank" rel="noopener noreferrer">(#66272)</a>
             </p>
           </section>
           <section class="section project">
@@ -948,7 +968,7 @@
               <strong>SSE·Slack Sender / Spring Boot AutoConfiguration</strong
               >을 구현했습니다.
             </p>
-            <p class="case-ref"><strong>Case Study → P.5</strong></p>
+            <p class="case-ref"><strong>Case Study → P.4</strong></p>
           </section>
           <section class="section education">
             <h2>EDUCATION &amp; EXPERIENCE</h2>
@@ -963,147 +983,13 @@
           </section>
         </div>
         <footer class="folio">
-          <span>변승은 · Backend Developer</span><span>01 / 05</span>
+          <span>변승은 · Backend Developer</span><span>01 / 04</span>
         </footer>
       </main>
     </div>
-    <!-- === PAGE 2: INPUT VALIDATION BOUNDARY === -->
+    <!-- === PAGE 2: ONE INVESTIGATION ACROSS TWO PRS === -->
     <div class="sheet-wrap">
       <article class="page technical" aria-label="포트폴리오 2페이지">
-        <header class="case-header">
-          <div class="eyebrow">OPEN SOURCE / APACHE ZEPPELIN</div>
-          <h1>WebSocket Runtime Validation</h1>
-          <p class="subtitle">
-            외부 입력을 신뢰하기 전, 공통 수신 경계에서 검증
-          </p>
-          <p class="lede">
-            TypeScript 타입만으로는 실제 JSON payload를 보장할 수 없습니다. 검증
-            없이 Component Handler에 도달하던 데이터를
-            <code>Message.receive()</code>에서 OP별로 검사하도록 개선했습니다.
-          </p>
-          <p class="source-line">
-            <a href="https://github.com/apache/zeppelin/pull/5453"
-              >PR #5453 · ZEPPELIN-6646</a
-            >
-          </p>
-        </header>
-        <div class="content-stack">
-          <section class="section">
-            <h2>RUNTIME MESSAGE FLOW</h2>
-            <div class="flow-row">
-              <div class="box">WebSocket</div>
-              <div class="arrow">→</div>
-              <div class="box"><code>received$ { op, data }</code></div>
-            </div>
-            <div class="arrow down">↓</div>
-            <div class="boundary">
-              <div class="boundary-title">
-                <code>Message.receive()</code><span>VALIDATION BOUNDARY</span>
-              </div>
-              <div class="flow-row">
-                <div class="box">OP match</div>
-                <div class="arrow">→</div>
-                <div class="box">
-                  OP-specific payload guard<br /><code
-                    >getMessagePayloadGuard(op)</code
-                  >
-                </div>
-              </div>
-              <div class="arrow down">↓</div>
-              <div class="guard-grid">
-                <div class="branch">
-                  <div class="branch-label">valid ↓</div>
-                  <div class="box emphasis">검증 통과 · 다음 단계로 전달</div>
-                </div>
-                <div class="branch">
-                  <div class="branch-label">invalid ↓</div>
-                  <div class="box drop">
-                    <strong>DROP + warn(OP)</strong><br />Handler에 도달하기
-                    전에 차단
-                  </div>
-                </div>
-              </div>
-              <p class="caption">
-                Guard가 없는 OP는 기존 경로를 유지합니다. 필요한 OP부터
-                점진적으로 검증을 적용합니다.
-              </p>
-            </div>
-            <div class="validation-tail">
-              <div>
-                <div class="arrow down">↓</div>
-                <div class="box"><code>map(message.data)</code></div>
-                <div class="arrow down">↓</div>
-                <div class="box"><code>@MessageListener</code></div>
-                <div class="arrow down">↓</div>
-                <div class="box emphasis">Component Handler</div>
-              </div>
-              <div class="pass-note">
-                <strong>Handler 오류는 숨기지 않음</strong>
-                <p>
-                  <code>@MessageListener</code>에서 실패한 OP context를 기록하고
-                  원래 오류를 다시 던져 기존 error propagation을 유지합니다.
-                </p>
-              </div>
-            </div>
-          </section>
-          <div class="two-col">
-            <section class="callout">
-              <div class="callout-title">WHY · 이 경계를 선택한 이유</div>
-              <p class="small">
-                OP와 실제 payload를 동시에 알고, subscriber에 넘기기 직전인 공통
-                지점입니다. Handler마다 검증하면 여러 component에 분산될 책임을
-                수신 경계에 모았습니다.
-              </p>
-            </section>
-            <section class="callout">
-              <div class="callout-title">RULE · 정상 removal stub 보존</div>
-              <p class="small">
-                <code>LIST_UPDATE_NOTE_JOBS</code><br /><code
-                  >noteId:string</code
-                >, <code>isRemoved:boolean</code> 필수.<br /><code>true</code> →
-                <code>noteName</code> 생략 허용<br /><code>false</code> →
-                <code>noteName:string</code> 필수
-              </p>
-            </section>
-          </div>
-          <section class="section">
-            <h2>VERIFICATION / REGRESSION SCENARIOS</h2>
-            <table class="comparison">
-              <thead>
-                <tr>
-                  <th>검증 시나리오</th>
-                  <th>기대 동작</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>정상 update / removal stub</td>
-                  <td>Handler 전달 · stub은 noteName 없이 허용</td>
-                </tr>
-                <tr>
-                  <td>Malformed update</td>
-                  <td>Handler 전달 차단 + OP warning</td>
-                </tr>
-                <tr>
-                  <td>Guard 없는 OP</td>
-                  <td>기존 동작 유지</td>
-                </tr>
-                <tr>
-                  <td>Handler exception</td>
-                  <td>OP context 기록 · 오류 전파 · 이후 메시지 처리 유지</td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-        </div>
-        <footer class="folio">
-          <span>변승은 · Backend Developer</span><span>02 / 05</span>
-        </footer>
-      </article>
-    </div>
-    <!-- === PAGE 3: ONE INVESTIGATION ACROSS TWO PRS === -->
-    <div class="sheet-wrap">
-      <article class="page technical" aria-label="포트폴리오 3페이지">
         <header class="case-header">
           <div class="eyebrow">OPEN SOURCE / APACHE ZEPPELIN</div>
           <h1>Serialization &amp; RPC Error Propagation</h1>
@@ -1263,24 +1149,17 @@
               </p>
             </div>
           </section>
-          <section class="section">
-            <h2>OTHER CONTRIBUTIONS</h2>
-            <p class="small">
-              테스트의 Frontend Build 의존성 제거 · 실행 실패 시
-              <code>System.out/err</code> 복구 등 안정성 개선.
-            </p>
-          </section>
         </div>
         <footer class="folio">
-          <span>변승은 · Backend Developer</span><span>03 / 05</span>
+          <span>변승은 · Backend Developer</span><span>02 / 04</span>
         </footer>
       </article>
     </div>
-    <!-- === PAGE 4: NOTEBOOK REPLY CONTEXT / PR #5487 === -->
+    <!-- === PAGE 3: NOTEBOOK REPLY CONTEXT / PR #5487 === -->
     <div class="sheet-wrap">
       <article
         class="page technical reply-context"
-        aria-label="포트폴리오 4페이지"
+        aria-label="포트폴리오 3페이지"
       >
         <header class="case-header">
           <div class="eyebrow">OPEN SOURCE / APACHE ZEPPELIN</div>
@@ -1404,7 +1283,7 @@
           </section>
           <section class="section">
             <h2>06 / VERIFICATION · SERVER → ROUTE → HANDLER</h2>
-            <table class="comparison">
+            <table class="comparison verification-table">
               <thead>
                 <tr>
                   <th>검증 경로</th>
@@ -1442,13 +1321,13 @@
           </section>
         </div>
         <footer class="folio">
-          <span>변승은 · Backend Developer</span><span>04 / 05</span>
+          <span>변승은 · Backend Developer</span><span>03 / 04</span>
         </footer>
       </article>
     </div>
-    <!-- === PAGE 5: IMPLEMENTED ARCHITECTURE AND CURRENT LIMITS === -->
+    <!-- === PAGE 4: IMPLEMENTED ARCHITECTURE AND CURRENT LIMITS === -->
     <div class="sheet-wrap">
-      <article class="page technical" aria-label="포트폴리오 5페이지">
+      <article class="page technical" aria-label="포트폴리오 4페이지">
         <header class="case-header">
           <div class="eyebrow">PROJECT / NOTIFY-KIT</div>
           <h1>Architecture &amp; Design Decisions</h1>
@@ -1601,7 +1480,7 @@
           </section>
         </div>
         <footer class="folio">
-          <span>변승은 · Backend Developer</span><span>05 / 05</span>
+          <span>변승은 · Backend Developer</span><span>04 / 04</span>
         </footer>
       </article>
     </div>
